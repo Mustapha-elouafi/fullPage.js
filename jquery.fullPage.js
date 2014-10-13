@@ -577,7 +577,17 @@
 			if(scrollable.length > 0 ){
 				//is the scrollbar at the start/end of the scroll?
 				if(isScrolled(check, scrollable)){
-					scrollSection();
+					if (type == 'down') {
+						if (!scrollable.hasClass('bottom')) {
+							scrollSection();
+						}else {
+							setTimeout(function(){
+								scrollable.removeClass('bottom');
+							}, 500)
+						}
+					} else {
+						scrollSection();
+					}
 				}else{
 					return true;
 				}
@@ -1245,7 +1255,7 @@
 					if(options.verticalCentered){
 						element.find('.fp-tableCell').wrapInner('<div class="fp-scrollable" />');
 					}else{
-						element.wrapInner('<div class="fp-scrollable" />');
+						element.wrapInner('<div class="fp-scrollable bottom" />');
 					}
 
 					element.find('.fp-scrollable').slimScroll({
